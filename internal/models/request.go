@@ -16,17 +16,14 @@ type ContactReq struct {
 	Input string `json:"input"`
 }
 
-type ExtractReq struct {
-	Input string `json:"input"`
-}
 
 type SaveReq struct {
-	Modified int `json:"Modified"`
+	Modified int `json:"modified"`
 	Text []string `json:"text"`
 	Pid string `json:"parentId"`
 }
 
 type AnalyzeReq struct {
-	Modified int `json:"Modified"`
-	Input string	`json:"input:"`
+	Modified int `json:"modified"`
+	Input string	`json:"input"`
 }

@@ -13,8 +13,8 @@ type ExtractResq struct {
     Tags []string   `json:"tags"`
 }
 
-func Extract(c *gin.Context, Input string) ([]string, error){
-    req := ExtractReq{Input}
+func Extract(c *gin.Context, input string, tags []string) ([]string, error){
+    req := ContactReq{Tags: tags, Input : input}
     // 序列化请求体，转发给 Python API
     jsonData, err := json.Marshal(req)
     if err != nil {

@@ -11,12 +11,10 @@ func main(){
 
 	r.POST("/register", handler.RegisterHandler)
 	r.POST("/login", handler.LoginHandler)
-	r.POST("/save", handler.SaveHandler)
-	r.GET("/search", handler.AnalyzeHandler)
 
 	user := r.Group("user")
 	user.Use(handler.AuthMiddlerWare)
 	user.POST("/save", handler.SaveHandler)
-	user.GET("/search", handler.AnalyzeHandler)
+	user.POST("/search", handler.AnalyzeHandler)
 	r.Run("localhost:8080")
 }

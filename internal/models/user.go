@@ -9,7 +9,6 @@ type UserInfo struct {
 }
 
 type SubCanvas struct {
-	Uid int 
 	Cid  string
 	Tags []string
 }

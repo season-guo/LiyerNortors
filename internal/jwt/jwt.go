@@ -70,12 +70,21 @@ func ParseAndCheckJwt(tokenString string) (*jwt.Token, error) {
 func GetClaim(token *jwt.Token) (Claim, error) {
 	var claim Claim
 	claims, ok := token.Claims.(jwt.MapClaims)
+
 	if !ok {
 		return claim, errors.New("get Claim error")
 	}
 
-	claim.Uid = claims["uid"].(int)
-	claim.Name = claims["name"].(string)
+	Uid, ok := claims["uid"].(float64)
+	if !ok {
+		return Claim{}, errors.New("uid transfer fail")
+	}
+	claim.Uid = int(Uid)
+
+	claim.Name, ok = claims["name"].(string)
+	if !ok {
+		return Claim{}, errors.New("name transfer fail")
+	}
 
 	return claim, nil
 }

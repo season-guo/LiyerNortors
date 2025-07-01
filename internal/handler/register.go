@@ -13,7 +13,7 @@ func RegisterHandler(c *gin.Context){
 	c.ShouldBindJSON(&req)
 
 	if err := models.Register(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
+		c.JSON(http.StatusBadRequest, gin.H{"Err" : err.Error()})
 		return
 	}
 

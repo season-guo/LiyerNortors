@@ -12,19 +12,19 @@ import(
 func AuthMiddlerWare(c *gin.Context){
 	TokenString, err  := c.Cookie("token")
 	if err != nil{
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error" : err})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error" : err.Error()})
 		return
 	}
 
 	token, err := jwt.ParseAndCheckJwt(TokenString) 
 	if err != nil{	
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error" : err})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error" : err.Error()})
 		return
 	}
 
 	claim , err := jwt.GetClaim(token)
 	if err != nil{
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error" : err})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error" : err.Error()})
 		return
 	}
 
