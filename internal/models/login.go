@@ -16,11 +16,13 @@ func Login(req *LoginReq) (int, error) {
 	hashPwd := HashPwd(req.Password)
 
 	userInfo := UserInfo{};
-	row := pg.QueryRow(context.TODO(), "Select * from \"user\" where name = $1", req.Name)  
+	println(3)
+	row := pg.QueryRow(context.TODO(), `Select * from "user" where name = $1`, req.Name)  
 	if err := row.Scan(&userInfo); err != nil {
 		return 0, err
 	}
-
+	
+	println(hashPwd)
 	if hashPwd != userInfo.password {
 		return 0, errors.New("password incorrect")
 	}

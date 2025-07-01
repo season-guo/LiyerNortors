@@ -11,6 +11,15 @@ type RegisterReq struct {
 
 type LoginReq = RegisterReq
 
+type ContactReq struct {
+	Tags []string `json:"tags"`
+	Input string `json:"input"`
+}
+
+type ExtractReq struct {
+	Input string `json:"input"`
+}
+
 type SaveReq struct {
 	Modified int `json:"Modified"`
 	Text []string `json:"text"`

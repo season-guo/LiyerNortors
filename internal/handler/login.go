@@ -9,20 +9,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Login(c *gin.Context){
+func LoginHandler(c *gin.Context){
 	var req models.LoginReq	
 	var uid int
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 		return
 	}
-
+	println(1)
 	uid, err := models.Login(&req)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
+		c.JSON(http.StatusBadRequest, gin.H{"Err" : err.Error()})
 		return
 	}
-
+	println(2)
 
 	token, err := jwt.GenerateJwt(jwt.Claim{Uid: uid, Name: req.Name })
 	if err != nil {

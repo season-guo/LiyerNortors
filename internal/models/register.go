@@ -21,7 +21,7 @@ func Register(req *RegisterReq) error{
 
 	hashPwd := HashPwd(req.Password)
 
-	if _, err := pg.Exec(context.TODO(), "INSERT INTO \"user\" (name, password) VALUES($1, $2)", req.Name, hashPwd); err != nil {
+	if _, err := pg.Exec(context.TODO(), `INSERT INTO "user" (name, password) VALUES($1, $2)`, req.Name, hashPwd); err != nil {
 		return err
 	}
 

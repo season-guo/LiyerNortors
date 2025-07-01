@@ -5,11 +5,11 @@ type UserInfo struct {
 	Name string
 	password string 
 	AllTags []string
+	Modified int
 }
 
 type SubCanvas struct {
 	Uid int 
-	Modified int
 	Cid  string
 	Tags []string
 }

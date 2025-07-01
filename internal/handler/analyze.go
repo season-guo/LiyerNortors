@@ -8,25 +8,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Save(c *gin.Context){
+func SaveHandler(c *gin.Context){
 	var req models.SaveReq
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 		return
 	}
 	
-	img, err  := c.FormFile("image")
+	/*img, err  := c.FormFile("image")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 		return
-	}
+	}*/
 
 	uid, err := GetUid(c)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 	}
 
-	if err := models.Save(uid, img, &req); err != nil {
+	if err := models.Save(c, uid, nil, &req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 		return
 	}
@@ -34,7 +34,7 @@ func Save(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"Status" : "Ok"})
 }
 
-func Analyze(c *gin.Context){
+func AnalyzeHandler(c *gin.Context){
 	var req models.AnalyzeReq
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
@@ -46,7 +46,7 @@ func Analyze(c *gin.Context){
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 	}
 
-	ResultCid, err := models.Analyze(uid, &req)
+	ResultCid, err := models.Analyze(c, uid, &req)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"Err" : err})
 		return
